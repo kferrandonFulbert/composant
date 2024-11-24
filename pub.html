@@ -1,0 +1,57 @@
+<html>
+    <head>
+
+
+        <style> #KeyFrameContent{ margin: 20px auto; width:150; height:150; overflow: hidden; position: relative; }
+            #sContent li { display: block; float:left; }
+            #sContent { position: absolute; top: 0; left: 0; width: 450px; margin: 0; padding: 0; /*CSS3 keyframes animation */ animation-name: AutoSlide; animation-duration: 5s; animation-iteration-count: infinite; animation-timing-function: ease-in; -webkit-animation-name: AutoSlide; -webkit-animation-duration: 5s; -webkit-animation-iteration-count: infinite; -webkit-animation-timing-function: ease-in; -moz-animation-name: AutoSlide; -moz-animation-duration: 5s; -moz-animation-iteration-count: infinite; -moz-animation-timing-function: ease-in; }
+            #sContent:hover { -webkit-animation-play-state:paused; -moz-animation-play-state:paused; animation-play-state:paused; }
+            .dv1{background-color:#ffccff;width:150px;height:150px;}
+            .dv2{background-color:#ffffcc;width:150px;height:150px;}
+            .dv3{background-color:#ccccff;width:150px;height:150px;}
+            @keyframes AutoSlide { 0%, 33.333333333333% { left : 0px }33.333333333333%, 66.666666666667% { left : -150px }66.666666666667%, 100% { left : -300px }}
+            @-webkit-keyframes AutoSlide { 0%, 33.333333333333% { left : 0px }33.333333333333%, 66.666666666667% { left : -150px }66.666666666667%, 100% { left : -300px }}
+        </style>
+    </head>
+    <body>
+        <div id="KeyFrameContent"> <ul id="sContent">
+                <li ><div class='dv1'>-10% sur nos développements WEB</div></li>
+                <li > <div class='dv2'>Des composants Web</div></li>
+                <li ><div class='dv3'>Réutilisable et tres puissant</div></li>
+            </ul> </div>
+
+    <kf-element data-text="Bonjour"></kf-element>
+    <kf-element data-text="Mon Deuxieme elements"></kf-element>
+        <script>
+            class SimpleElement extends HTMLElement {
+                constructor() {
+                    // Toujours appeler "super" d'abord dans le constructeur car on h�rite de
+                    // HtmlElement donc on execute le constructeur du parent en premier.
+                    super();
+
+                    // Create a shadow root
+                    const shadow = this.attachShadow({mode: 'open'});
+
+                    // Create spans
+                    const element = document.createElement('span');
+                    element.setAttribute('class', 'monCss');
+
+                    // Ajout de text a l'element span
+                    const text = this.getAttribute('data-text');
+                    element.textContent = text;
+
+                    // Create some CSS to apply to the shadow dom
+                     const style = document.createElement('style');
+                     console.log(style.isConnected);
+
+                     style.textContent = `span.monCss{background-color:#ff6666;}`;
+                      //J'affecte tous mes elements et mes styles aux shadow root
+                      shadow.appendChild(style);
+                      shadow.appendChild(element);
+                }
+            }
+            // je crée l'élément que je nome kf-element
+            customElements.define('kf-element', SimpleElement);
+        </script>
+    </body>
+</html>

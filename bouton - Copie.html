@@ -1,0 +1,109 @@
+<html>
+    <head>
+        <style></style>  
+    </head>
+    <body>
+
+        <button class="button ">bouton normal</button>
+        inspiration : <a href="https://www.w3schools.com/css/tryit.asp?filename=trycss_buttons_hover">w3school</a>
+        <hr />
+    <kf-bouton data-text="KF Bouton" data-class="dark"></kf-bouton>
+    <kf-bouton data-text="Msg info" data-class="info"></kf-bouton>
+    <kf-bouton data-text="Msg danger" data-class="danger"></kf-bouton>
+    <script>
+        class Bouton extends HTMLElement {
+            constructor() {
+                // Toujours appeler "super" d'abord dans le constructeur car on hérite de 
+                // HtmlElement donc on execute le constructeur du parent en premier.
+                super();
+
+                // Create a shadow root
+                const shadow = this.attachShadow({mode: 'open'});
+
+                // Create button
+                const wrapper = document.createElement('button');
+                wrapper.setAttribute('class', 'button');
+
+                const text = this.getAttribute('data-text');
+                wrapper.textContent = text;
+
+                const classCss = this.getAttribute('data-class');
+                wrapper.classList.add(classCss);
+          //      wrapper.textContent = text;
+
+                const style = document.createElement('style');
+                console.log(style.isConnected);
+
+                style.textContent = `
+.button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            -webkit-transition-duration: 0.4s; /* Safari */
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+        .button:hover{
+            background-color: #fff;
+            color: #4CAF50;
+           /* border: 2px solid #4CAF50;*/
+        }
+.info {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #008CBA;
+}
+
+.info:hover {
+    background-color: #008CBA;
+    color: white;
+}
+
+.danger {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #f44336;
+}
+
+.danger:hover {
+    background-color: #f44336;
+    color: white;
+}
+
+.disabled {
+    background-color: white;
+    color: black;
+    border: 2px solid #e7e7e7;
+}
+
+.disabled:hover {background-color: #e7e7e7;}
+
+.dark {
+    background-color: white;
+    color: black;
+    border: 2px solid #555555;
+}
+
+.dark:hover {
+    background-color: #555555;
+    color: white;
+            }
+`;
+
+                // Attach the created elements to the shadow dom
+                shadow.appendChild(style);
+                console.log(style.isConnected);
+                shadow.appendChild(wrapper);
+            }
+        }
+        // on defini son element
+        customElements.define('kf-bouton', Bouton);
+    </script>
+</body>
+</html>
