@@ -10,10 +10,15 @@
     <kf-bouton data-text="KF Bouton" data-class="dark"></kf-bouton>
     <kf-bouton data-text="Msg info" data-class="info"></kf-bouton>
     <kf-bouton data-text="Msg danger" data-class="danger"></kf-bouton>
+<kf-bouton
+    id="btn-valider"
+    data-text="Valider"
+    data-class="success">
+</kf-bouton>
     <script>
         class Bouton extends HTMLElement {
             constructor() {
-                // Toujours appeler "super" d'abord dans le constructeur car on hérite de 
+                // Toujours appeler "super" d'abord dans le constructeur car on hï¿½rite de 
                 // HtmlElement donc on execute le constructeur du parent en premier.
                 super();
 
@@ -104,6 +109,12 @@
         }
         // on defini son element
         customElements.define('kf-bouton', Bouton);
+
+
+        document.getElementById('btn-valider').addEventListener('click', function() {
+            
+            alert('Valider');
+        });
     </script>
 </body>
 </html>
